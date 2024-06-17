@@ -1,0 +1,88 @@
+############### Blackjack Project #####################
+import random
+from art import logo 
+print(logo)
+def rules_of_game():
+  print("Rules:")
+  print("Score is calculated by adding the value on cards.")
+  print("The cards [K,Q,J] are considered to have value 10.")
+  print("The card 'A' has a value 11 or 1 according to situations.")
+  print("User with score clore to 21 wins :-)")
+  print("If a user crosses 21, it's immediate loss")
+  
+cards=[11,2,3,4,5,6,7,8,9,10,10,10,10]
+user=[]
+computer=[]
+for i in range(0,2):
+  user.append(random.choice(cards))
+  computer.append(random.choice(cards))
+def sum(usr):
+  sum_i=0
+  for i in usr:
+    sum_i+=i
+  return sum_i
+
+def check(usr):
+  if sum(usr)>21:
+    return False
+  elif sum(usr)==21:
+    return True
+def convert(user):
+  for i in range(0,len(user)):
+    if user[i]==11 and sum(user)>21:
+      user[i]=1
+continue_or_not=True  
+rules = input("Do you want to read rules of game? 'y' or 'n': ")
+print(rules)
+if rules == 'y' :
+  rules_of_game()
+print("the game begins now :-)")
+print("")
+
+while(continue_or_not):
+  rules='n'
+  
+  print(f"user cards = {user}")
+  print(f"computer = {computer[0]}")
+  convert(user)
+  convert(computer)
+  if sum(user)>21:
+    print(f"user = {user}")
+    print(f"Computer = {computer}")
+    print("You lose")
+    break
+  elif sum(user)==21:
+    print(f"user = {user}")
+    print(f"Computer = {computer}")
+    print("you won as sum=21")
+  else:
+    chose = input("Want to add a card? 'y' for yes and 'n' for no  \n")
+    if chose == 'n':
+      if sum(computer)<17:
+        while sum(computer)<17:
+          computer.append(random.choice(cards))
+        convert(computer)
+
+      if sum(computer)>21:
+        print(f"user = {user}")
+        print(f"Computer = {computer}")
+        print("You won")
+        break
+      elif sum(user)==sum(computer):
+        print(f"user = {user}")
+        print(f"Computer = {computer}")
+        print("Draw")
+        break
+      elif 21-sum(user) < abs(21 - sum(computer)):
+        print(f"user = {user}")
+        print(f"Computer = {computer}")
+        print("User won")
+        break
+      else:
+        print(f"user = {user}")
+        print(f"Computer = {computer}")
+        print("user lost")
+        break  
+    else:
+      user.append(random.choice(cards))
+
